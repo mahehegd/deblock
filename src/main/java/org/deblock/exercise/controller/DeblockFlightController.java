@@ -1,25 +1,36 @@
+package org.deblock.exercise.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.deblock.exercise.model.SearchRequestParam;
+import org.deblock.exercise.model.SearchResponseParam;
+import org.deblock.exercise.service.DeblockFlightsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 public class DeblockFlightController {
+
+    @Autowired
+    DeblockFlightsService service;
     @RequestMapping("/")
     public String home() {
         return "Hi deblockFlights!";
     }
 
-    @PostMapping(value = "/v1/search")
-    public ResponseEntity<FlightSearchResult> getFlights(
-            @Valid @RequestBody FlightSearchRequestParameters searchParameters,
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "fare") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortOrder) {
+    @PostMapping(value = "/v1/flights")
+    public ResponseEntity<List<SearchResponseParam>> getFlights(
+            @Valid @RequestBody SearchRequestParam searchParameters) {
+        
+                
+        List<SearchResponseParam> response = service.fetchFlights(searchParameters);
 
-        Sort sort = Sort.by(sortOrder.equalsIgnoreCase("asc") ? Direction.ASC : Direction.DESC, sortBy);
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        List<FlightDetail> flightDetails = flightAggregationService.getFlights(searchParameters, pageable);
-        FlightSearchResult flightSearchResult = new FlightSearchResult();
-        flightSearchResult.setResponses(flightDetails);
-
-        return new ResponseEntity<>(flightSearchResult, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

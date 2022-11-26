@@ -27,6 +27,4 @@ public class CrazyAirResponseObject {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate arrivalDate;
 
-
-
 }

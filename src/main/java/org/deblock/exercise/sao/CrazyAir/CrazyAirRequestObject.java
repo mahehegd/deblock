@@ -2,9 +2,11 @@ package org.deblock.exercise.sao.CrazyAir;
 
 import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CrazyAirRequestObject {
     private String origin;
 
@@ -16,7 +18,5 @@ public class CrazyAirRequestObject {
 
     private int passengerCount;
 }
-
-
 
 

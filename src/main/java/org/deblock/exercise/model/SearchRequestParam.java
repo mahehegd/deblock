@@ -33,8 +33,7 @@ public class SearchRequestParam {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate returnDate;
 
-    @NonNull
     @Min(value = 1, message = "Minimum of 1 passenger per trip")
     @Max(value = 4, message = "Maximum of 4 passengers per trip")
-    private String numberOfPassengers;
+    private int numberOfPassengers;
 }
