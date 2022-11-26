@@ -19,6 +19,7 @@ public class DeblockFlightsService extends Throwable{
     List<APIClient> clients;
     
     public List<SearchResponseParam> fetchFlights(SearchRequestParam request){
+        System.out.println(clients.size());
         List<CompletableFuture<List<SearchResponseParam>>> futures = clients.stream()
             .map(client -> CompletableFuture.supplyAsync(() -> {
                 List<SearchResponseParam> responseParams =  client.fetchFlights(client.getRequestObjectFromSearchParam(request));
@@ -28,16 +29,16 @@ public class DeblockFlightsService extends Throwable{
     try {
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).get(60, TimeUnit.SECONDS);
     } catch (InterruptedException | ExecutionException | TimeoutException e) {
-        // log
+        // TODO log the api call that is taking longer than 60 seconds.
     }
     List<SearchResponseParam> results = futures
             .stream()
             .filter(future -> future.isDone() && !future.isCompletedExceptionally())
             .map(CompletableFuture::join)
             .flatMap(List::stream)
+            .sorted((f1,f2) ->f1.getFare().compareTo(f2.getFare()))
             .collect(Collectors.toList()); 
 
     return results;
-
     }
 }

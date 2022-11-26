@@ -1,6 +1,8 @@
 package org.deblock.exercise.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,8 @@ import org.springframework.lang.NonNull;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchRequestParam {
     @NonNull
     @Size(min = 3, max = 3, message = "Origin should be 3 character long")
