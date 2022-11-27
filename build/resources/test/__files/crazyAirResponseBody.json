@@ -1,32 +1,29 @@
-{
-    "response" : 
-    [
-        {
-            "airline": "Singapore Airlines",
-            "price": 100.0,
-            "cabinclass": "E",
-            "departureAirportCode": "LHR",
-            "destinationAirportCode": "AMS",
-            "departureDate": "2022-11-19T23:51:25.654930Z",
-            "arrivalDate": "2022-11-22T23:51:25.655814Z"
-        },
-        {
-            "airline": "Air India",
-            "price": 200.0,
-            "cabinclass": "B",
-            "departureAirportCode": "LHR",
-            "destinationAirportCode": "AMS",
-            "departureDate": "2022-11-19T23:51:25.654930Z",
-            "arrivalDate": "2022-11-22T23:51:25.655814Z"
-        },
-        {
-            "airline": "Indigo",
-            "price": 80.0,
-            "cabinclass": "E",
-            "departureAirportCode": "LHR",
-            "destinationAirportCode": "AMS",
-            "departureDate": "2022-11-19T23:51:25.654930Z",
-            "arrivalDate": "2022-11-22T23:51:25.655814Z"
-        }
-    ]
-}
+[
+    {
+        "airline": "Singapore Airlines",
+        "price": 100.0,
+        "cabinclass": "E",
+        "departureAirportCode": "LHR",
+        "destinationAirportCode": "AMS",
+        "departureDate": "2022-11-27T12:11:11.890814Z",
+        "arrivalDate": "2022-11-30T12:11:11.890814Z"
+    },
+    {
+        "airline": "Air India",
+        "price": 200.0,
+        "cabinclass": "B",
+        "departureAirportCode": "LHR",
+        "destinationAirportCode": "AMS",
+        "departureDate": "2022-11-27T12:11:11.890814Z",
+        "arrivalDate": "2022-11-30T12:11:11.890814Z"
+    },
+    {
+        "airline": "Indigo",
+        "price": 80.0,
+        "cabinclass": "E",
+        "departureAirportCode": "LHR",
+        "destinationAirportCode": "AMS",
+        "departureDate": "2022-11-27T12:11:11.890814Z",
+        "arrivalDate": "2022-11-30T12:11:11.890814Z"
+    }
+]
