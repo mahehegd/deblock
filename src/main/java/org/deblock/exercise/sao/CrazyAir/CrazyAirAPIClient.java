@@ -15,13 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class CrazyAirAPIClient implements APIClient<CrazyAirRequestObject, CrazyAirResponseObject>{
-private final String url = "http://localhost:8001/v1/flights"; //TODO move to application.properties and fetch using @Value
-  
+private final String url = "http://localhost:8001/v1/flights"; 
     @Override
     public List<SearchResponseParam> fetchFlights(CrazyAirRequestObject request) {
-
+        try{
         RestTemplate restTemplate = new RestTemplate(); //TODO create bean in @Configuration to @Autowired
         RequestEntity<CrazyAirRequestObject> requestEntity = 
             new RequestEntity<CrazyAirRequestObject>(request, HttpMethod.GET, URI.create(url));
@@ -31,6 +33,10 @@ private final String url = "http://localhost:8001/v1/flights"; //TODO move to ap
         
             List<CrazyAirResponseObject> data = response.getBody();
             return data.stream().map(d -> getSearchResponseFromResponseObject(d)).collect(Collectors.toList());
+        } catch(Exception e){
+            log.error(e.getMessage(), e);
+            throw e;
+        }
     }
 
     @Override

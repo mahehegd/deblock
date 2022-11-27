@@ -1,0 +1,23 @@
+[
+    {
+        "carrier" : "Easy Jet",
+        "basePrice" : 100.00,
+        "tax" : 7.5,
+        "discount" : 6.00,
+        "departureAirportName" : "LHR",
+        "arrivalAirportName" : "BLR",
+        "outboundDateTime" : "2022-11-27T12:11:11.890814Z",
+        "inboundDateTime" : "2022-11-30T12:11:11.890814Z"
+    },
+    {
+        "carrier" : "KLM",
+        "basePrice" : 150.00,
+        "tax" : 7.5,
+        "discount" : 6.00,
+        "departureAirportName" : "LHR",
+        "arrivalAirportName" : "BLR",
+        "outboundDateTime" : "2022-11-27T12:11:11.890814Z",
+        "inboundDateTime" : "2022-11-30T12:11:11.890814Z"
+
+    }
+]

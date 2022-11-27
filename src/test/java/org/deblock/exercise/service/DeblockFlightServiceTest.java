@@ -29,37 +29,50 @@ import com.google.common.collect.Ordering;
 public class DeblockFlightServiceTest {
 
     private static String urlToStub;
-    private static WireMockServer mockServer;
+    private static WireMockServer mockServer1;
+    private static WireMockServer mockServer2;
 
     @Autowired
     DeblockFlightsService service;
 
     @BeforeAll
-    static void init(){
-        mockServer = new WireMockServer(new WireMockConfiguration().port(8001));
-        WireMock.configureFor("localhost",8001);
-        mockServer.start();
+    static void init() {
+        mockServer1 = new WireMockServer(new WireMockConfiguration().port(8001));
+        WireMock.configureFor("localhost", 8001);
+        mockServer1.start();
+
+        mockServer2 = new WireMockServer(new WireMockConfiguration().port(8002));
+        WireMock.configureFor("localhost", 8002);
+        mockServer2.start();
     }
 
     @AfterAll
     static void stopServer() {
-        mockServer.shutdown();
+        mockServer1.shutdown();
+        mockServer2.shutdown();
     }
 
     @Test
     void TestResponseAndSortByFare() throws Exception {
-        urlToStub = "v1/flights";
-        mockServer.stubFor(WireMock.get(urlToStub)
+        String crazyAirUrlToStub = "/v1/flights";
+        String toughJetUrlToStub = "/v1/getFlights";
+        mockServer1.stubFor(WireMock.get(crazyAirUrlToStub)
                 .willReturn(WireMock.aResponse().withStatus(200)
                         .withHeader("Content-Type", "application/json")
-                        .withBodyFile("toughjet.json")));
-        SearchRequestParam searchParam = new SearchRequestParam("LHR", "AMS", LocalDate.now(), LocalDate.now(), 4);
+                        .withBodyFile("crazyAirResponseBody.json")));
+        mockServer2.stubFor(WireMock.get(toughJetUrlToStub)
+                .willReturn(WireMock.aResponse().withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBodyFile("toughJetResponseBody.json")));
+        SearchRequestParam searchParam = new SearchRequestParam("LHR", "AMS", LocalDate.now(), LocalDate.now(), 3);
 
         List<SearchResponseParam> response = service.fetchFlights(searchParam);
-        assertEquals(response.size(), 3);
+        assertEquals(response.size(), 5);
         List<Double> fares = response.stream()
-        .map(r->{return r.getFare();})
-        .collect(Collectors.toList());
+                .map(r -> {
+                    return r.getFare();
+                })
+                .collect(Collectors.toList());
         assertTrue(Ordering.natural().isOrdered(fares));
     }
 }
