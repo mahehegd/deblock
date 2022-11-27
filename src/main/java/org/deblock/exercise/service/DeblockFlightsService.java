@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
+import org.deblock.exercise.exceptions.InternalServiceFailureException;
 import org.deblock.exercise.model.SearchRequestParam;
 import org.deblock.exercise.model.SearchResponseParam;
 import org.deblock.exercise.sao.APIClient;
@@ -47,7 +48,7 @@ public class DeblockFlightsService extends Throwable {
         return results;
     } catch (Exception ex){
         log.error(ex.getMessage(), ex);
-        throw ex;
+        throw new InternalServiceFailureException(ex.getMessage());
     }
     }
 }
