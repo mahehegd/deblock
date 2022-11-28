@@ -8,6 +8,7 @@ import org.deblock.exercise.model.SearchRequestParam;
 import org.deblock.exercise.model.SearchResponseParam;
 import org.deblock.exercise.model.Suppliers;
 import org.deblock.exercise.sao.APIClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -20,10 +21,13 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class ToughJetAPIClient implements APIClient<ToughJetRequestObject, ToughJetResponseObject> {
-    private final String url = "http://localhost:8002/v1/getFlights";
+    @Value("${tough_jet.url}")
+    private String url ;
+    //= "http://localhost:8002/v1/getFlights";
 
     @Override
     public List<SearchResponseParam> fetchFlights(ToughJetRequestObject request) {
+        log.info(String.format("url = %s", url));
         try {
             RestTemplate restTemplate = new RestTemplate(); // TODO create bean in @Configuration to @Autowired
             RequestEntity<ToughJetRequestObject> requestEntity = new RequestEntity<ToughJetRequestObject>(request,

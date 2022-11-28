@@ -37,12 +37,12 @@ public class DeblockFlightServiceTest {
 
     @BeforeAll
     static void init() {
-        mockServer1 = new WireMockServer(new WireMockConfiguration().port(8001));
-        WireMock.configureFor("localhost", 8001);
+        mockServer1 = new WireMockServer(new WireMockConfiguration().port(5001));
+        WireMock.configureFor("localhost", 5001);
         mockServer1.start();
 
-        mockServer2 = new WireMockServer(new WireMockConfiguration().port(8002));
-        WireMock.configureFor("localhost", 8002);
+        mockServer2 = new WireMockServer(new WireMockConfiguration().port(5002));
+        WireMock.configureFor("localhost", 5002);
         mockServer2.start();
     }
 
@@ -54,8 +54,8 @@ public class DeblockFlightServiceTest {
 
     @Test
     void TestResponseAndSortByFare() throws Exception {
-        String crazyAirUrlToStub = "/v1/flights";
-        String toughJetUrlToStub = "/v1/getFlights";
+        String crazyAirUrlToStub = "/v1/seekflights";
+        String toughJetUrlToStub = "/v1/getflights";
         mockServer1.stubFor(WireMock.get(crazyAirUrlToStub)
                 .willReturn(WireMock.aResponse().withStatus(200)
                         .withHeader("Content-Type", "application/json")
@@ -66,7 +66,7 @@ public class DeblockFlightServiceTest {
                         .withBodyFile("toughJetResponseBody.json")));
         SearchRequestParam searchParam = new SearchRequestParam("LHR", "AMS", LocalDate.now(), LocalDate.now(), 3);
 
-        List<SearchResponseParam> response = service.fetchFlights(searchParam);
+        List<SearchResponseParam> response = service.getFlights(searchParam);
         assertEquals(response.size(), 5);
         List<Double> fares = response.stream()
                 .map(r -> {

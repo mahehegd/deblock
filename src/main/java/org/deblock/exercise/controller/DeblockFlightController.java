@@ -31,7 +31,7 @@ public class DeblockFlightController {
     public ResponseEntity<List<SearchResponseParam>> getFlights(
             @Valid @RequestBody SearchRequestParam searchParameters) {
                 
-        List<SearchResponseParam> response = service.fetchFlights(searchParameters);
+        List<SearchResponseParam> response = service.getFlights(searchParameters);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

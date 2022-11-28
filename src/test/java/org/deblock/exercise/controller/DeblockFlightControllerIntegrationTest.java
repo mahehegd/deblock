@@ -57,7 +57,7 @@ public class DeblockFlightControllerIntegrationTest {
                 "AMS", LocalDate.now(), LocalDate.now().plusDays(2));
         response.add(responseParam);
 
-        Mockito.when(service.fetchFlights(Mockito.any())).thenReturn(response);
+        Mockito.when(service.getFlights(Mockito.any())).thenReturn(response);
 
         SearchRequestParam request = new SearchRequestParam("LHR", "AMS", LocalDate.now(), LocalDate.now().plusDays(2),
                 2);

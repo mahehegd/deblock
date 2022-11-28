@@ -8,6 +8,7 @@ import org.deblock.exercise.model.SearchRequestParam;
 import org.deblock.exercise.model.SearchResponseParam;
 import org.deblock.exercise.model.Suppliers;
 import org.deblock.exercise.sao.APIClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -20,9 +21,13 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class CrazyAirAPIClient implements APIClient<CrazyAirRequestObject, CrazyAirResponseObject>{
-private final String url = "http://localhost:8001/v1/flights"; 
+
+    @Value("${crazy_air.url}")
+private String url; 
+//= "http://localhost:8001/v1/flights"; 
     @Override
     public List<SearchResponseParam> fetchFlights(CrazyAirRequestObject request) {
+        log.info(String.format("url = %s", url));
         try{
         RestTemplate restTemplate = new RestTemplate(); //TODO create bean in @Configuration to @Autowired
         RequestEntity<CrazyAirRequestObject> requestEntity = 
